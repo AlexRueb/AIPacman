@@ -1,0 +1,2 @@
+# AIPacman
+Pacman search algorithms
