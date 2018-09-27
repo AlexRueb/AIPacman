@@ -1,7 +1,7 @@
 //This is the initial file for the A* search agent
 package aipacman;
 
-public class astar {
+public class Astar {
 
     public char[][] maze;
 

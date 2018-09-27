@@ -1,7 +1,7 @@
 //This is the initial file for the breadth-first search agent
 package aipacman;
 
-public class breadth {
+public class Breadth {
 
     public char[][] maze;
 
