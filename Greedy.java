@@ -1,21 +1,13 @@
 //This is the initial file for the greedy first search agent
-package aipacman;
+//package aipacman;
 
 public class Greedy {
+  public Greedy() {}
 
-    public char[][] maze;
-    public Node[] frontier;
-    
-    public void greedy(char[][] maze) {
-        this.maze = maze;
-    }
+  public Node[] frontier;
 
-
-
-    //the method that solves the maze
-    public char[][] solve(){
-        
-        
-        return maze;
-    }
+  //the method that solves the maze
+  public char[][] solve(char[][] maze){
+      return maze;
+  }
 }
