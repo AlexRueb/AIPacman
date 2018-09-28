@@ -9,11 +9,20 @@ import java.io.*;
 /**
  *
  * @author Alex and Dill
+ *
+ * AIPacman imports a maze from a text file into a 2D char array, then passes it
+ * to the various informed and uninformed agents. The start point of each maze
+ * is represented by a P, while the end point is represented by a *. Each agent
+ * solves the maze in a different way then returns a new 2d char array which
+ * represents the solved maze.
+ *
  */
 public class AIPacman {
 
     /**
-     * @param args the command line arguments
+     * @param args {String maze, String agent}
+     *    maze: the file name of the maze to be solved
+     *    agent: the name of the agent to implement 
      */
     public static void main(String[] args) {
         // TODO code application logic here
