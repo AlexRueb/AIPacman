@@ -15,7 +15,7 @@ public class Depth {
     //only increments if a space gets changed from ' ' to '.'
     public int stepsTaken = 0;
     
-    //only increments when a node is pushed onto the stack.
+    //only increments findNeighbors is ran, which is the expansion method
     public int nodesExpanded = 0;
 
     //the method that solves the maze
@@ -56,6 +56,7 @@ public class Depth {
             //REMOVE BEFORE SUBMISSION
             //Thread.sleep(100);
             findNeighbors(frontier.pop());
+            nodesExpanded++;
         }
         System.out.println("Steps taken: " + stepsTaken);
         System.out.println("Nodes expanded: " + nodesExpanded);
@@ -78,7 +79,6 @@ public class Depth {
             if (maze[y + 1][x] == ' ') {
                 Node current = target.addNeighbor(' ', x, y + 1);
                 frontier.push(current);
-                nodesExpanded++;
             } else if (maze[y + 1][x] == '*') {
                 solved = true;
             }
@@ -89,7 +89,6 @@ public class Depth {
             if (maze[y][x - 1] == ' ') {
                 Node current = target.addNeighbor(' ', x - 1, y);
                 frontier.push(current);
-                nodesExpanded++;
             } else if (maze[y][x - 1] == '*') {
                 solved = true;
             }
@@ -100,7 +99,6 @@ public class Depth {
             if (maze[y - 1][x] == ' ') {
                 Node current = target.addNeighbor(' ', x, y - 1);
                 frontier.push(current);
-                nodesExpanded++;
             } else if (maze[y - 1][x] == '*') {
                 solved = true;
             }
@@ -111,7 +109,6 @@ public class Depth {
             if (maze[y][x + 1] == ' ') {
                 Node current = target.addNeighbor(' ', x + 1, y);
                 frontier.push(current);
-                nodesExpanded++;
             } else if (maze[y][x + 1] == '*') {
                 solved = true;
             }
