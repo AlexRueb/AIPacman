@@ -50,7 +50,7 @@ public class AIPacman {
             //char[][] astarSolved = astar.solve(board);
             
             //Printing
-            System.out.println("Depth First Solution:");
+            System.out.println("Depth First Solution, starting from right going counter-clockwise:");
             printBoard(depthSolved);
             //System.out.println("Breadth First Solution:");
             //printBoard(breadthSolved);
