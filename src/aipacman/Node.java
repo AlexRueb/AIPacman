@@ -11,14 +11,23 @@ package aipacman;
  */
 public class Node {
 
-    public Node[] neighbors = new Node[8];
+    public Node[] neighbors = new Node[4];
     public int xCord;
     public int yCord;
     public char id;
-
+    public int spot = 0;
+    
     public Node(){
 
     }
 
+    public Node addNeighbor(char target, int x, int y){
+        neighbors[spot] = new Node();
+        neighbors[spot].id = target;
+        neighbors[spot].xCord = x;
+        neighbors[spot].yCord = y;
+        spot += 1;
+        return neighbors[spot-1];
+    }
 
 }

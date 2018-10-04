@@ -28,32 +28,36 @@ public class AIPacman {
      * @param args {String maze, String agent} maze: the file name of the maze
      * to be solved agent: the name of the agent to implement
      */
-    public static void main(String[] args) {
+    
+    //InterruptedException is for debugging purposes only
+    //REMOVE BEFORE FINAL SUBMISSION
+    public static void main(String[] args) throws InterruptedException {
         try {
             //Initialize Board
             char[][] board = import_maze("src/aipacman/medium maze.txt");
             
             //Initialize agents
             Depth depth = new Depth();
-            Breadth breadth = new Breadth();
-            Greedy greedy = new Greedy();
-            Astar astar = new Astar();
+            //Breadth breadth = new Breadth();
+            //Greedy greedy = new Greedy();
+            //Astar astar = new Astar();
             
             //Solutions
+            printBoard(board);
             char[][] depthSolved = depth.solve(board);
-            char[][] breadthSolved = breadth.solve(board);
-            char[][] greedySolved = greedy.solve(board);
-            char[][] astarSolved = astar.solve(board);
+            //char[][] breadthSolved = breadth.solve(board);
+            //char[][] greedySolved = greedy.solve(board);
+            //char[][] astarSolved = astar.solve(board);
             
             //Printing
             System.out.println("Depth First Solution:");
             printBoard(depthSolved);
-            System.out.println("Breadth First Solution:");
-            printBoard(breadthSolved);
-            System.out.println("Greedy First Solution:");
-            printBoard(greedySolved);
-            System.out.println("A* Solution:");
-            printBoard(astarSolved);
+            //System.out.println("Breadth First Solution:");
+            //printBoard(breadthSolved);
+            //System.out.println("Greedy First Solution:");
+            //printBoard(greedySolved);
+            //System.out.println("A* Solution:");
+            //printBoard(astarSolved);
         } catch (IOException ex) {
             Logger.getLogger(AIPacman.class.getName()).log(Level.SEVERE, null, ex);
         }
