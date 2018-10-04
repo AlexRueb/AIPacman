@@ -7,7 +7,24 @@ public class Breadth {
   public Node[] frontier;
 
   //the method that solves the maze
-  public char[][] solve(char[][] maze){
-      return maze;
-  }
+  public char[][] solve(char[][] maze) {
+        int startX = 0;
+        int startY = 0; 
+        int x, y;
+        y = maze.length;
+        char[] t = maze[1];
+        x = t.length;
+        //finding start point of map
+        for(int i = 0; i < y ;i++){
+            for(int j = 0; j < x; j++){
+                if(maze[i][j] == 'P'){
+                    startX = j;
+                    startY = i;
+                    break;
+                }
+            }
+        }
+        System.out.println("Starting at: X = " + startX + " and Y = " + startY);
+        return maze;
+    }
 }
