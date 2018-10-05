@@ -12,6 +12,8 @@ public class Depth {
     Stack<Node> answer = new Stack();
     public char[][] maze;
     public boolean solved = false;
+    public int startX = 0;
+    public int startY = 0;
 
     //only increments if a space gets changed from ' ' to '.'
     public int stepsTaken = 0;
@@ -25,8 +27,6 @@ public class Depth {
     public char[][] solve(char[][] maze) throws InterruptedException {
         //initializing variables
         this.maze = maze;
-        int startX = 0;
-        int startY = 0;
         int x, y;
         y = maze.length;
         char[] t = maze[1];
@@ -76,8 +76,6 @@ public class Depth {
             }
         }
 
-        System.out.println("Starting at: X = " + startX + " and Y = " + startY);
-
         //making the stack
         frontier.push(root);
         root.visited = true;
@@ -87,9 +85,6 @@ public class Depth {
         }
         Node ans = answer.pop();
         findParent(ans);
-
-        System.out.println("Steps taken: " + stepsTaken);
-        System.out.println("Nodes expanded: " + nodesExpanded);
 
         return maze;
     }

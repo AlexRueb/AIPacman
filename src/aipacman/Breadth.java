@@ -3,6 +3,7 @@ package aipacman;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class Breadth {
 
@@ -10,8 +11,11 @@ public class Breadth {
     }
 
     public Queue<Node> frontier = new LinkedList();
+    Stack<Node> answer = new Stack();
     public char[][] maze;
     public boolean solved = false;
+    public int startX = 0;
+    public int startY = 0;
 
     //only increments if a space gets changed from ' ' to '.'
     public int stepsTaken = 0;
@@ -19,16 +23,17 @@ public class Breadth {
     //only increments findNeighbors is ran, which is the expansion method
     public int nodesExpanded = 0;
 
+    public Node[][] nodeArr;
+
     //the method that solves the maze
     public char[][] solve(char[][] maze) throws InterruptedException {
         //initializing variables
         this.maze = maze;
-        int startX = 0;
-        int startY = 0;
         int x, y;
         y = maze.length;
         char[] t = maze[1];
         x = t.length;
+        nodeArr = new Node[y][x];
 
         //finding start point of maze
         for (int i = 0; i < y; i++) {
@@ -40,78 +45,83 @@ public class Breadth {
                 }
             }
         }
-        System.out.println("Starting at: X = " + startX + " and Y = " + startY);
-
         Node root = new Node();
-        root.id = 'P';
-        root.xCord = startX;
-        root.yCord = startY;
-        frontier.add(root);
 
-        while (!solved) {
-            findNeighbors(frontier.poll());
-            nodesExpanded++;
-            //Thread.sleep(100);
-
+        //creates array of nodes
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                nodeArr[i][j] = new Node();
+                nodeArr[i][j].id = maze[i][j];
+                nodeArr[i][j].xCord = j;
+                nodeArr[i][j].yCord = i;
+                if (nodeArr[i][j].id == 'P') {
+                    root = nodeArr[i][j];
+                }
+            }
         }
-        
-        System.out.println("Steps taken: " + stepsTaken);
-        System.out.println("Nodes expanded: " + nodesExpanded);
+
+        //find all neighbors of all nodes
+        for (int i = 1; i < y - 1; i++) {
+            for (int j = 1; j < x - 1; j++) {
+                if ((nodeArr[i - 1][j].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i - 1][j]);
+                }
+                if ((nodeArr[i][j - 1].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i][j - 1]);
+                }
+                if ((nodeArr[i + 1][j].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i + 1][j]);
+                }
+                if ((nodeArr[i][j + 1].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i][j + 1]);
+                }
+            }
+        }
+
+        //making the stack
+        frontier.add(root);
+        root.visited = true;
+        while (!solved) {
+
+            findPath(frontier.poll());
+        }
+        Node ans = answer.pop();
+        findParent(ans);
 
         return maze;
     }
 
-    public void findNeighbors(Node target) {
-        //REMOVE PRINTBOARD CALL BELOW
-        AIPacman.printBoard(maze);
+    public void findParent(Node target) throws InterruptedException {
+        if (target.parent != null) {
+            answer.push(target.parent);
+            if (target.id != '*') {
+                maze[target.yCord][target.xCord] = '.';
+                stepsTaken++;
+            }
+            findParent(target.parent);
+        }
+    }
+
+    public void findPath(Node target) {
         int x = target.xCord;
         int y = target.yCord;
-
-        if (maze[y][x] != 'P') {
-            maze[y][x] = '.';
-            stepsTaken++;
-        }
-        //down
-        if (maze[y + 1][x] != '%') {
-            if (maze[y + 1][x] == ' ') {
-                if (frontier.contains(maze[y + 1][x])) {
-
-                } else {
-                    Node current = target.addNeighbor(' ', x, y + 1);
-                    frontier.add(current);
+        //maze[y][x] = '.';
+        nodesExpanded++;
+        for (int i = 0; i < target.spot; i++) {
+            target.visited = true;
+            if (!target.neighbors[i].visited) {
+                if (target.neighbors[i].id == '*') {
+                    solved = true;
+                    target.neighbors[i].parent = target;
+                    answer.push(target.neighbors[i]);
+                    return;
                 }
-            } else if (maze[y + 1][x] == '*') {
-                solved = true;
-            }
-        }
+                target.neighbors[i].parent = target;
+                target.neighbors[i].visited = true;
+                frontier.add(target.neighbors[i]);
 
-        //left
-        if (maze[y][x - 1] != '%') {
-            if (maze[y][x - 1] == ' ') {
-                Node current = target.addNeighbor(' ', x - 1, y);
-                frontier.add(current);
-            } else if (maze[y][x - 1] == '*') {
-                solved = true;
-            }
-        }
+            } else {
 
-        //up
-        if (maze[y - 1][x] != '%') {
-            if (maze[y - 1][x] == ' ') {
-                Node current = target.addNeighbor(' ', x, y - 1);
-                frontier.add(current);
-            } else if (maze[y - 1][x] == '*') {
-                solved = true;
-            }
-        }
-
-        //right
-        if (maze[y][x + 1] != '%') {
-            if (maze[y][x + 1] == ' ') {
-                Node current = target.addNeighbor(' ', x + 1, y);
-                frontier.add(current);
-            } else if (maze[y][x + 1] == '*') {
-                solved = true;
             }
         }
     }
