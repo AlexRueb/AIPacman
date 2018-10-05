@@ -9,14 +9,17 @@ public class Depth {
     }
 
     Stack<Node> frontier = new Stack();
+    Stack<Node> answer = new Stack();
     public char[][] maze;
     public boolean solved = false;
-    
+
     //only increments if a space gets changed from ' ' to '.'
     public int stepsTaken = 0;
-    
+
     //only increments findNeighbors is ran, which is the expansion method
     public int nodesExpanded = 0;
+
+    public Node[][] nodeArr;
 
     //the method that solves the maze
     public char[][] solve(char[][] maze) throws InterruptedException {
@@ -28,6 +31,7 @@ public class Depth {
         y = maze.length;
         char[] t = maze[1];
         x = t.length;
+        nodeArr = new Node[y][x];
 
         //finding start point of maze
         for (int i = 0; i < y; i++) {
@@ -39,80 +43,89 @@ public class Depth {
                 }
             }
         }
+        Node root = new Node();
+
+        //creates array of nodes
+        for (int i = 0; i < y; i++) {
+            for (int j = 0; j < x; j++) {
+                nodeArr[i][j] = new Node();
+                nodeArr[i][j].id = maze[i][j];
+                nodeArr[i][j].xCord = j;
+                nodeArr[i][j].yCord = i;
+                if (nodeArr[i][j].id == 'P') {
+                    root = nodeArr[i][j];
+                }
+            }
+        }
+
+        //find all neighbors of all nodes
+        for (int i = 1; i < y - 1; i++) {
+            for (int j = 1; j < x - 1; j++) {
+                if ((nodeArr[i - 1][j].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i - 1][j]);
+                }
+                if ((nodeArr[i][j - 1].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i][j - 1]);
+                }
+                if ((nodeArr[i + 1][j].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i + 1][j]);
+                }
+                if ((nodeArr[i][j + 1].id != '%')) {
+                    nodeArr[i][j].addNeighbor(nodeArr[i][j + 1]);
+                }
+            }
+        }
+
         System.out.println("Starting at: X = " + startX + " and Y = " + startY);
 
         //making the stack
-        Node root = new Node();
-        root.id = 'P';
-        root.xCord = startX;
-        root.yCord = startY;
         frontier.push(root);
-        nodesExpanded++;
-        findNeighbors(root);
-        //System.out.println(root.neighbors[0].xCord + " " + root.neighbors[0].yCord);
-
+        root.visited = true;
         while (!solved) {
-            //Thread.sleep only used for debugging, to watch the maze be solved.
-            //REMOVE BEFORE SUBMISSION
-            //Thread.sleep(100);
-            findNeighbors(frontier.pop());
-            nodesExpanded++;
+
+            findPath(frontier.pop());
         }
+        Node ans = answer.pop();
+        findParent(ans);
+
         System.out.println("Steps taken: " + stepsTaken);
         System.out.println("Nodes expanded: " + nodesExpanded);
 
         return maze;
     }
 
-    public void findNeighbors(Node target) {
-        //REMOVE PRINTBOARD CALL BELOW
-        //AIPacman.printBoard(maze);
-        int x = target.xCord;
-        int y = target.yCord;
-
-        if (maze[y][x] != 'P') {
-            maze[y][x] = '.';
-            stepsTaken++;
-        }
-        //down
-        if (maze[y + 1][x] != '%') {
-            if (maze[y + 1][x] == ' ') {
-                Node current = target.addNeighbor(' ', x, y + 1);
-                frontier.push(current);
-            } else if (maze[y + 1][x] == '*') {
-                solved = true;
+    public void findParent(Node target) throws InterruptedException {
+        if (target.parent != null) {
+            answer.push(target.parent);
+            if (target.id != '*') {
+                maze[target.yCord][target.xCord] = '.';
+                stepsTaken++;
             }
-        }
-
-        //left
-        if (maze[y][x - 1] != '%') {
-            if (maze[y][x - 1] == ' ') {
-                Node current = target.addNeighbor(' ', x - 1, y);
-                frontier.push(current);
-            } else if (maze[y][x - 1] == '*') {
-                solved = true;
-            }
-        }
-
-        //up
-        if (maze[y - 1][x] != '%') {
-            if (maze[y - 1][x] == ' ') {
-                Node current = target.addNeighbor(' ', x, y - 1);
-                frontier.push(current);
-            } else if (maze[y - 1][x] == '*') {
-                solved = true;
-            }
-        }
-
-        //right
-        if (maze[y][x + 1] != '%') {
-            if (maze[y][x + 1] == ' ') {
-                Node current = target.addNeighbor(' ', x + 1, y);
-                frontier.push(current);
-            } else if (maze[y][x + 1] == '*') {
-                solved = true;
-            }
+            findParent(target.parent);
         }
     }
 
+    public void findPath(Node target) {
+        int x = target.xCord;
+        int y = target.yCord;
+        //maze[y][x] = '.';
+        nodesExpanded++;
+        for (int i = 0; i < target.spot; i++) {
+            target.visited = true;
+            if (!target.neighbors[i].visited) {
+                if (target.neighbors[i].id == '*') {
+                    solved = true;
+                    target.neighbors[i].parent = target;
+                    answer.push(target.neighbors[i]);
+                    return;
+                }
+                target.neighbors[i].parent = target;
+                target.neighbors[i].visited = true;
+                frontier.push(target.neighbors[i]);
+
+            } else {
+
+            }
+        }
+    }
 }

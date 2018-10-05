@@ -12,16 +12,15 @@ public class Breadth {
     public Queue<Node> frontier = new LinkedList();
     public char[][] maze;
     public boolean solved = false;
-    
+
     //only increments if a space gets changed from ' ' to '.'
     public int stepsTaken = 0;
-    
+
     //only increments findNeighbors is ran, which is the expansion method
     public int nodesExpanded = 0;
-    
-    
+
     //the method that solves the maze
-    public char[][] solve(char[][] maze) {
+    public char[][] solve(char[][] maze) throws InterruptedException {
         //initializing variables
         this.maze = maze;
         int startX = 0;
@@ -42,24 +41,29 @@ public class Breadth {
             }
         }
         System.out.println("Starting at: X = " + startX + " and Y = " + startY);
-        
+
         Node root = new Node();
         root.id = 'P';
         root.xCord = startX;
         root.yCord = startY;
         frontier.add(root);
-        
-        while(!solved){
+
+        while (!solved) {
             findNeighbors(frontier.poll());
-            stepsTaken++;
-            
+            nodesExpanded++;
+            //Thread.sleep(100);
+
         }
+        
+        System.out.println("Steps taken: " + stepsTaken);
+        System.out.println("Nodes expanded: " + nodesExpanded);
+
         return maze;
     }
 
     public void findNeighbors(Node target) {
         //REMOVE PRINTBOARD CALL BELOW
-        //AIPacman.printBoard(maze);
+        AIPacman.printBoard(maze);
         int x = target.xCord;
         int y = target.yCord;
 
@@ -70,8 +74,12 @@ public class Breadth {
         //down
         if (maze[y + 1][x] != '%') {
             if (maze[y + 1][x] == ' ') {
-                Node current = target.addNeighbor(' ', x, y + 1);
-                frontier.add(current);
+                if (frontier.contains(maze[y + 1][x])) {
+
+                } else {
+                    Node current = target.addNeighbor(' ', x, y + 1);
+                    frontier.add(current);
+                }
             } else if (maze[y + 1][x] == '*') {
                 solved = true;
             }

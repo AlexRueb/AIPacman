@@ -41,13 +41,11 @@ public class AIPacman {
             //Astar astar = new Astar();
 
             //Solutions
-            printBoard(board);
             char[][] depthSolved = depth.solve(board);
-            printBoard(board);
-            board = import_maze("src/aipacman/medium maze.txt");
-            char[][] breadthSolved = breadth.solve(board);
-            printBoard(board);
-            board = import_maze("src/aipacman/medium maze.txt");
+            //board = import_maze("src/aipacman/medium maze.txt");
+            //char[][] breadthSolved = breadth.solve(board);
+            //printBoard(board);
+            //board = import_maze("src/aipacman/medium maze.txt");
             //char[][] greedySolved = greedy.solve(board);
             //newBoard = board;
             //char[][] astarSolved = astar.solve(board);
@@ -56,8 +54,8 @@ public class AIPacman {
             //Printing
             System.out.println("Depth First Solution, starting from right going counter-clockwise:");
             printBoard(depthSolved);
-            System.out.println("Breadth First Solution:");
-            printBoard(breadthSolved);
+            //System.out.println("Breadth First Solution:");
+            //printBoard(breadthSolved);
             //System.out.println("Greedy First Solution:");
             //printBoard(greedySolved);
             //System.out.println("A* Solution:");
