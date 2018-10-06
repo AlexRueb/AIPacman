@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/alex/NetBeansProjects/AIPacman/src/aipacman/Breadth.java</file>
-            <file>file:/home/alex/NetBeansProjects/AIPacman/src/aipacman/Astar.java</file>
-            <file>file:/home/alex/NetBeansProjects/AIPacman/src/aipacman/Depth.java</file>
-            <file>file:/home/alex/NetBeansProjects/AIPacman/src/aipacman/AIPacman.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Agent.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Greedy.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/AIPacman.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Node.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Breadth.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Astar.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Depth.java</file>
         </group>
     </open-files>
 </project-private>

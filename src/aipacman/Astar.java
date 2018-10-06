@@ -1,32 +1,40 @@
-//This is the initial file for the A* search agent
+//This is the initial java file for the depth-first search agent
 package aipacman;
 
-public class Astar {
-  public Astar() {}
+import java.util.PriorityQueue;
+import java.util.Stack;
 
-  public Node[] frontier;
+public class Astar extends Agent{
 
-  //the method that solves the maze
-  public char[][] solve(char[][] maze) {
-        //initializing variables
-        int startX = 0;
-        int startY = 0;
-        int x, y;
-        y = maze.length;
-        char[] t = maze[1];
-        x = t.length;
-
-        //finding start point of maze
-        for (int i = 0; i < y; i++) {
-            for (int j = 0; j < x; j++) {
-                if (maze[i][j] == 'P') {
-                    startX = j;
-                    startY = i;
-                    break;
-                }
-            }
+    public Astar(char[][] chararr) {
+        this.chararr = chararr;
+        //frontier = new PriorityQueue();
+        maze = new Node[chararr.length][chararr[0].length];
+        answer = new Stack();
+        solved = false;
+        stepsTaken = 0;
+        nodesExpanded = 0;
+    }
+    
+    //the method that solves the maze
+    @Override
+    public Node[][] solve() throws InterruptedException {
+        
+        //initialize node array
+        create_node_arr(chararr);
+        
+        //find start point
+        Node root = find_start_point();
+        
+        //making the stack
+        frontier.push(root);
+        root.visited = true;
+        while (!solved) {
+            findPath(frontier.pop());
         }
-        System.out.println("Starting at: X = " + startX + " and Y = " + startY);
+        Node ans = answer.pop();
+        findParent(ans);
+
         return maze;
     }
 }

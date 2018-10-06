@@ -34,22 +34,22 @@ public class AIPacman {
         try {
             //Initialize Board
             char[][] board = import_maze("src/aipacman/medium maze.txt");
-            //Initialize agents
-            Depth depth = new Depth();
-            Breadth breadth = new Breadth();
-            //Greedy greedy = new Greedy();
-            //Astar astar = new Astar();
+            
+            //Depth First
+            Depth depth = new Depth(board);
+            Node[][] depthSolved = depth.solve();
+            
+            //Breadth First
+            Breadth breadth = new Breadth(board);
+            Node[][] breadthSolved = breadth.solve();
 
-            //Solutions
-            char[][] depthSolved = depth.solve(board);
-            board = import_maze("src/aipacman/medium maze.txt");
-            char[][] breadthSolved = breadth.solve(board);
-            //printBoard(board);
-            //board = import_maze("src/aipacman/medium maze.txt");
-            //char[][] greedySolved = greedy.solve(board);
-            //newBoard = board;
-            //char[][] astarSolved = astar.solve(board);
-            //newBoard = board;
+            //A* 
+            //Astar astar = new Astar(board);
+            //Node[][] astarSolved = astar.solve();
+            
+            //Greedy Best First
+            //Greedy greedy = new Greedy(board);
+            //Node[][] greedySolved = greedy.solve();
 
             //Printing
             System.out.println("Depth First Solution, starting from right going counter-clockwise:");
@@ -71,9 +71,12 @@ public class AIPacman {
         }
     }
 
-    public static void printBoard(char[][] board) {
-        for (int i = 0; i < board.length; i++) {
-            System.out.println(board[i]);
+    public static void printBoard(Node[][] board) {
+        for(Node[] row : board){
+            for(Node n : row){
+                System.out.print(n.id);
+            }
+            System.out.println();
         }
     }
 
