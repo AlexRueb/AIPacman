@@ -4,6 +4,7 @@ package aipacman;
 import java.util.Stack;
 import java.lang.Math;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Greedy extends InformedAgent{
@@ -29,7 +30,7 @@ public class Greedy extends InformedAgent{
         
         
         //initialize frontier, with (heuristic+step_cost(n,root)) minimized
-        PriorityQueue<Node> frontier = new PriorityQueue<>();
+        PriorityQueue<Node> frontier = new PriorityQueue<>(4,new FrontierOrder());
         
         //initialize node array
         create_node_arr(chararr);
@@ -45,46 +46,37 @@ public class Greedy extends InformedAgent{
         root.visited = true;
         int step = 0;
         while (!frontier.isEmpty()) {
-            //print_frontier(frontier);
+            print_board();
             nodesExpanded++;
             //always expand node that has lowest manhattan score to goal
             Node current = frontier.poll();
             if(current.id == '*'){
-                answer.add(current);
-                Node ans = answer.pop();
-                findParent(ans);
+                answer.push(current);
+                System.out.println("Found the path!");
                 return maze;
-            }
-            
-            current.visited = true;
-            
-            for(Node n : current.neighbors){
-                if(n == null) continue;
-                //print_board();
-                //If neighbor of current node has been visited
-                if(n.visited){
-                } else {
-                    int tentative_score = manhattan_distance(current, goal);
-                    if(!frontier.contains(n)){
-                        frontier.add(n);
+            } else {
+                for(Node n : current.neighbors){
+                    //print_board();
+                    if(n == null) continue;
+                    
+                    //If neighbor of current node has been visited
+                    if(n.visited){} 
+                    else {
+                       n.visited = true;
+                       frontier.add(n);
                     }
-                    else if(tentative_score >= n.distance_to_start){
-                        continue;
-                    }
+                    current.visited = true;
+                    n.parent = current;
+                    n.distance_to_goal = manhattan_distance(n, goal);
                 }
-                n.parent = current;
-                
             }  
         }
-        
+        Node ans = answer.pop();
+        findParent(ans,'P');
         return maze;
     }
     
     public void print_frontier(PriorityQueue<Node> p){
-        for(Node n : p){
-            System.out.println(n.id);
-            System.out.println(n.distance_to_start);
-            System.out.println(n.estimated_cost);
-        }
+        System.out.println(p.toArray().toString());
     }
 }

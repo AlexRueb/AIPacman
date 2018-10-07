@@ -47,7 +47,7 @@ public class Astar extends InformedAgent{
             //expand node that has lowest evaluation score
             Node current = frontier.poll();
             if(current.id == '*'){
-                findParent(current);
+                findParent(current, '*');
                 return maze;
             }
             

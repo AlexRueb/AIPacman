@@ -20,7 +20,8 @@ public class Node implements Comparable<Node>{
     public int spot = 0;
     public boolean visited = false;
     public boolean inSolution = false;
-    public int distance_to_start = 9999999;
+    public int distance_to_start;
+    public int distance_to_goal = 9999999;
     public int estimated_cost = 9999999;
     public Node parent;
     
@@ -49,5 +50,9 @@ public class Node implements Comparable<Node>{
     @Override
     public int compareTo(Node n){
         return estimated_cost - estimated_cost;
+    }
+    @Override
+    public String toString(){
+        return "distance to goal: " + distance_to_goal;
     }
 }
