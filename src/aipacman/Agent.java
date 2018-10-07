@@ -15,7 +15,6 @@ abstract public class Agent {
     char[][] chararr;
     public Node[][] maze;
     Stack<Node> answer;
-    QueueOrStack<Node> frontier;
     public int startX;
     public int startY;
     public boolean solved;
@@ -48,7 +47,7 @@ abstract public class Agent {
         }
         return root;
     }
-    
+   
     public void create_node_arr(char[][] board){
         //initializing variables
         int x, y;

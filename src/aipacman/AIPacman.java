@@ -35,46 +35,49 @@ public class AIPacman {
             //Initialize Board
             char[][] board = import_maze("src/aipacman/medium maze.txt");
             
+            //Initialize Agent
+            Agent agent;
+            
             //Depth First
-            Depth depth = new Depth(board);
-            Node[][] depthSolved = depth.solve();
+            agent = new Depth(board);
+            Node[][] depthSolved = agent.solve();
             System.out.println("Depth First Solution, starting from right going counter-clockwise:");
-            System.out.println("Starting at: X = " + depth.startX + " and Y = " + depth.startY);
-            System.out.println("Steps taken: " + depth.stepsTaken);
-            System.out.println("Nodes expanded: " + depth.nodesExpanded);
+            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+            System.out.println("Steps taken: " + agent.stepsTaken);
+            System.out.println("Nodes expanded: " + agent.nodesExpanded);
             System.out.println("---------------------------------------");
             printBoard(depthSolved);
             System.out.println();
             
             //Breadth First
-            Breadth breadth = new Breadth(board);
-            Node[][] breadthSolved = breadth.solve();
+            agent = new Breadth(board);
+            Node[][] breadthSolved = agent.solve();
             System.out.println("Breadth First Solution:");
-            System.out.println("Starting at: X = " + breadth.startX + " and Y = " + breadth.startY);
-            System.out.println("Steps taken: " + breadth.stepsTaken);
-            System.out.println("Nodes expanded: " + breadth.nodesExpanded);
+            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+            System.out.println("Steps taken: " + agent.stepsTaken);
+            System.out.println("Nodes expanded: " + agent.nodesExpanded);
             System.out.println("---------------------------------------");
             printBoard(breadthSolved);
             System.out.println();
 
             //A* 
-            Astar astar = new Astar(board);
-            Node[][] astarSolved = astar.solve();
+            agent = new Astar(board);
+            Node[][] astarSolved = agent.solve();
             System.out.println();
             System.out.println("A* Solution:");
-            System.out.println("Starting at: X = " + astar.startX + " and Y = " + astar.startY);
-            System.out.println("Steps taken: " + astar.stepsTaken);
-            System.out.println("Nodes expanded: " + astar.nodesExpanded);
+            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+            System.out.println("Steps taken: " + agent.stepsTaken);
+            System.out.println("Nodes expanded: " + agent.nodesExpanded);
             System.out.println("---------------------------------------");
             printBoard(astarSolved);
             
 //            //Greedy Best First
-//            Greedy greedy = new Greedy(board);
-//            Node[][] greedySolved = greedy.solve();
+//            agent = new Greedy(board);
+//            Node[][] greedySolved = agent.solve();
 //            System.out.println("Greedy First Solution:");
-//            System.out.println("Starting at: X = " + greedy.startX + " and Y = " + greedy.startY);
-//            System.out.println("Steps taken: " + greedy.stepsTaken);
-//            System.out.println("Nodes expanded: " + greedy.nodesExpanded);
+//            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+//            System.out.println("Steps taken: " + agent.stepsTaken);
+//            System.out.println("Nodes expanded: " + agent.nodesExpanded);
 //            System.out.println("---------------------------------------");
 //            printBoard(greedySolved);
 //            System.out.println();

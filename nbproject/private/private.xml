@@ -7,9 +7,11 @@
             <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Greedy.java</file>
             <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/AIPacman.java</file>
             <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Node.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/UninformedAgent.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/InformedAgent.java</file>
             <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Breadth.java</file>
-            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Astar.java</file>
             <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Depth.java</file>
+            <file>file:/home/dtice/Documents/Code/aipacman/src/aipacman/Astar.java</file>
         </group>
     </open-files>
 </project-private>

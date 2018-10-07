@@ -10,6 +10,7 @@ package aipacman;
  * @author root
  */
 abstract public class UninformedAgent extends Agent{
+    QueueOrStack<Node> frontier;
     public void find_path(Node target) {
         int x = target.xCord;
         int y = target.yCord;
