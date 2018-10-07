@@ -53,14 +53,14 @@ public class Astar extends InformedAgent{
             
             
             current.visited = true;
-            
+            int tentative_score = 0;
             for(Node n : current.neighbors){
                 if(n == null) continue;
                 print_board();
                 //If neighbor of current node has been visited
                 if(n.visited){
                 } else {
-                    int tentative_score = //TODO path cost from start to node here;
+                    tentative_score = 0/*TODO path cost from start to node here*/;
                     
                     if(!frontier.contains(n)){
                         frontier.add(n);

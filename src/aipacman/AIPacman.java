@@ -61,26 +61,26 @@ public class AIPacman {
             System.out.println();
 
             //A* 
-            agent = new Astar(board);
-            Node[][] astarSolved = agent.solve();
-            System.out.println();
-            System.out.println("A* Solution:");
-            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
-            System.out.println("Steps taken: " + agent.stepsTaken);
-            System.out.println("Nodes expanded: " + agent.nodesExpanded);
-            System.out.println("---------------------------------------");
-            printBoard(astarSolved);
-            
-//            //Greedy Best First
-//            agent = new Greedy(board);
-//            Node[][] greedySolved = agent.solve();
-//            System.out.println("Greedy First Solution:");
+//            agent = new Astar(board);
+//            Node[][] astarSolved = agent.solve();
+//            System.out.println();
+//            System.out.println("A* Solution:");
 //            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
 //            System.out.println("Steps taken: " + agent.stepsTaken);
 //            System.out.println("Nodes expanded: " + agent.nodesExpanded);
 //            System.out.println("---------------------------------------");
-//            printBoard(greedySolved);
-//            System.out.println();
+//            printBoard(astarSolved);
+            
+            //Greedy Best First
+            agent = new Greedy(board);
+            Node[][] greedySolved = agent.solve();
+            System.out.println("Greedy First Solution:");
+            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+            System.out.println("Steps taken: " + agent.stepsTaken);
+            System.out.println("Nodes expanded: " + agent.nodesExpanded);
+            System.out.println("---------------------------------------");
+            printBoard(greedySolved);
+            System.out.println();
             
         } catch (IOException ex) {
             Logger.getLogger(AIPacman.class.getName()).log(Level.SEVERE, null, ex);
