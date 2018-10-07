@@ -2,9 +2,6 @@
 package aipacman;
 
 import java.util.Stack;
-import java.lang.Math;
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.PriorityQueue;
 
 public class Greedy extends InformedAgent{
@@ -52,6 +49,7 @@ public class Greedy extends InformedAgent{
             Node current = frontier.poll();
             if(current.id == '*'){
                 answer.push(current);
+                findParent(answer.pop(), '*');
                 System.out.println("Found the path!");
                 return maze;
             } else {
@@ -60,19 +58,18 @@ public class Greedy extends InformedAgent{
                     if(n == null) continue;
                     
                     //If neighbor of current node has been visited
-                    if(n.visited){} 
+                    current.visited = true;
+                    if(n.visited){continue;} 
                     else {
                        n.visited = true;
                        frontier.add(n);
                     }
-                    current.visited = true;
                     n.parent = current;
                     n.distance_to_goal = manhattan_distance(n, goal);
                 }
             }  
         }
-        Node ans = answer.pop();
-        findParent(ans,'P');
+        
         return maze;
     }
     
