@@ -16,6 +16,10 @@ public class QueueOrStack<E> implements Iterable<E> {
     public E pop() {
         return isQueue ? container.removeFirst() : container.removeLast();
     }
+    
+    public E peek() {
+        return isQueue ? container.peekFirst() : container.peekLast();
+    }
 
     public void push(E element) {
         container.addLast(element);

@@ -3,7 +3,7 @@ package aipacman;
 
 import java.util.Stack;
 
-public class Breadth extends Agent{
+public class Breadth extends UninformedAgent{
 
     public Breadth(char[][] chararr) {
         this.chararr = chararr;
@@ -23,13 +23,14 @@ public class Breadth extends Agent{
         create_node_arr(chararr);
         
         //find start point
-        Node root = find_start_point();
+        root = find_start_point();
         
         //making the queue
         frontier.push(root);
         root.visited = true;
         while (!solved) {
-            findPath(frontier.pop());
+            find_path(frontier.pop());
+            //print_board();
         }
         Node ans = answer.pop();
         findParent(ans);

@@ -21,9 +21,9 @@ abstract public class Agent {
     public boolean solved;
     public int stepsTaken;
     public int nodesExpanded;
+    Node root;
     
     abstract public Node[][] solve() throws InterruptedException;
-    
     
     public void findParent(Node target) throws InterruptedException {
         if (target.parent != null) {
@@ -35,33 +35,8 @@ abstract public class Agent {
             findParent(target.parent);
         }
     }
-
-    public void findPath(Node target) {
-        int x = target.xCord;
-        int y = target.yCord;
-        //maze[y][x] = '.';
-        nodesExpanded++;
-        for (int i = 0; i < target.spot; i++) {
-            target.visited = true;
-            if (!target.neighbors[i].visited) {
-                if (target.neighbors[i].id == '*') {
-                    solved = true;
-                    target.neighbors[i].parent = target;
-                    answer.push(target.neighbors[i]);
-                    return;
-                }
-                target.neighbors[i].parent = target;
-                target.neighbors[i].visited = true;
-                frontier.push(target.neighbors[i]);
-
-            } else {
-
-            }
-        }
-    }
     
     public Node find_start_point(){
-        Node root = new Node();
         for(Node[] row : maze){
             for(Node n : row){
                 if(n.id == 'P'){
@@ -91,7 +66,7 @@ abstract public class Agent {
                 }
             }
         }
-        Node root = new Node();
+        root = new Node();
 
         //creates array of nodes
         for (int i = 0; i < y; i++) {
@@ -122,6 +97,15 @@ abstract public class Agent {
                     maze[i][j].addNeighbor(maze[i][j + 1]);
                 }
             }
+        }
+    }
+    
+    public void print_board() {
+        for(Node[] row : maze){
+            for(Node n : row){
+                System.out.print(n.id);
+            }
+            System.out.println();
         }
     }
 }

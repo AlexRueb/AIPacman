@@ -11,7 +11,7 @@ import java.lang.Math;
  *
  * @author Alex
  */
-public class Node implements Comparable<Node>{
+public class Node{
 
     public Node[] neighbors = new Node[4];
     public int xCord;
@@ -23,7 +23,8 @@ public class Node implements Comparable<Node>{
     public Node parent;
     
     public Node(){
-
+        xCord = 0;
+        yCord = 0;
     }
     
     public Node(int x, int y){
@@ -42,11 +43,5 @@ public class Node implements Comparable<Node>{
         neighbors[spot].yCord = y;
         spot += 1;
         return neighbors[spot-1];
-    }
-    
-    @Override
-    public int compareTo(Node n){
-        //Returns Manhattan distance between nodes
-        return Math.abs(xCord - n.xCord) + Math.abs(yCord-n.yCord);
     }
 }
