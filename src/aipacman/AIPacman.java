@@ -1,15 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
 
-import java.util.*;
 import java.io.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-//import *;
 
 /**
  *
@@ -25,20 +16,20 @@ import java.util.logging.Logger;
 public class AIPacman {
 
     /**
-     * @param args {String maze, String agent} maze: the file name of the maze
-     * to be solved agent: the name of the agent to implement
+     * 
+     * @throws java.io.IOException
      */
-    //InterruptedException is for debugging purposes only
-    //REMOVE BEFORE FINAL SUBMISSION
-    public static void main(String[] args) throws InterruptedException {
-        try {
-            //Initialize Board
-            char[][] board = import_maze("src/aipacman/large maze.txt");
 
-            
+    public static void main(String[] args) throws IOException {
+        String[] mazes = {"open maze.txt", "medium maze.txt", "large maze.txt"};
+        for(String maze : mazes) {
+            BufferedWriter bw = new BufferedWriter(new FileWriter("output.txt", true));
+            //Initialize Board
+            char[][] board = import_maze("src/aipacman/"+maze);
+
             //Initialize Agent
             Agent agent;
-            
+
             //Depth First
             agent = new Depth(board);
             Node[][] depthSolved = agent.solve();
@@ -50,6 +41,14 @@ public class AIPacman {
             printBoard(depthSolved);
             System.out.println();
             
+            bw.append("Depth First Solution, starting from right going counter-clockwise:\n");
+            bw.append("Starting at: X = " + agent.startX + " and Y = " + agent.startY + "\n");
+            bw.append("Steps taken: " + agent.stepsTaken + "\n");
+            bw.append("Nodes expanded: " + agent.nodesExpanded + "\n");
+            bw.append("---------------------------------------\n");
+            output_board(depthSolved, bw);
+            bw.newLine();
+
             //Breadth First
             agent = new Breadth(board);
             Node[][] breadthSolved = agent.solve();
@@ -60,22 +59,38 @@ public class AIPacman {
             System.out.println("---------------------------------------");
             printBoard(breadthSolved);
             System.out.println();
+            
+            bw.append("Breadth First Solution:\n");
+            bw.append("Starting at: X = " + agent.startX + " and Y = " + agent.startY + "\n");
+            bw.append("Steps taken: " + agent.stepsTaken + "\n");
+            bw.append("Nodes expanded: " + agent.nodesExpanded + "\n");
+            bw.append("---------------------------------------\n");
+            output_board(breadthSolved, bw);
+            bw.newLine();
 
-//            //A* 
+            //A* 
             agent = new Astar(board);
             Node[][] astarSolved = agent.solve();
-            System.out.println();
             System.out.println("A* Solution:");
             System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
             System.out.println("Steps taken: " + agent.stepsTaken);
             System.out.println("Nodes expanded: " + agent.nodesExpanded);
             System.out.println("---------------------------------------");
             printBoard(astarSolved);
+            System.out.println();
             
+            bw.append("A* Solution:\n");
+            bw.append("Starting at: X = " + agent.startX + " and Y = " + agent.startY + "\n");
+            bw.append("Steps taken: " + agent.stepsTaken + "\n");
+            bw.append("Nodes expanded: " + agent.nodesExpanded + "\n");
+            bw.append("---------------------------------------\n");
+            output_board(astarSolved, bw);
+            bw.newLine();
+
             //Greedy Best First
             agent = new Greedy(board);
             Node[][] greedySolved = agent.solve();
-            System.out.println("Greedy First Solution:");
+            System.out.println("Greedy BFS Solution:");
             System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
             System.out.println("Steps taken: " + agent.stepsTaken);
             System.out.println("Nodes expanded: " + agent.nodesExpanded);
@@ -83,8 +98,14 @@ public class AIPacman {
             printBoard(greedySolved);
             System.out.println();
             
-        } catch (IOException ex) {
-            Logger.getLogger(AIPacman.class.getName()).log(Level.SEVERE, null, ex);
+            bw.append("Greedy BFS Solution:\n");
+            bw.append("Starting at: X = " + agent.startX + " and Y = " + agent.startY + "\n");
+            bw.append("Steps taken: " + agent.stepsTaken + "\n");
+            bw.append("Nodes expanded: " + agent.nodesExpanded + "\n");
+            bw.append("---------------------------------------\n");
+            output_board(greedySolved, bw);
+            bw.newLine();
+            bw.close();
         }
     }
 
@@ -94,6 +115,15 @@ public class AIPacman {
                 System.out.print(n.id);
             }
             System.out.println();
+        }
+    }
+    
+    public static void output_board(Node[][] board, BufferedWriter out) throws IOException {
+        for(Node[] row : board){
+            for(Node n : row){
+                out.append(n.id);
+            }
+            out.newLine();
         }
     }
 

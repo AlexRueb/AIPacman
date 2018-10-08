@@ -1,16 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
 
 /**
- *
- * @author root
+ * UninformedAgent is the super class for DFS and BFS.
+ * 
+ * @author Dillon Tice and Alex Rueb
  */
 abstract public class UninformedAgent extends Agent{
     QueueOrStack<Node> frontier;
+
+    /**
+     * Tree search implementation for BFS and DFS
+     * @param target    The start node
+     */
     public void find_path(Node target) {
         int x = target.xCord;
         int y = target.yCord;

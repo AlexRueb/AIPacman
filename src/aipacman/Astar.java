@@ -4,8 +4,23 @@ package aipacman;
 import java.util.Stack;
 import java.util.PriorityQueue;
 
+/**
+ * Astar implements a heuristic function, the Manhattan distance from the current
+ * node to the goal, and an addition function, the step cost function, that 
+ * determines how many steps it takes from the start to reach the node.
+ * 
+ * The frontier is represented as a minimized priority queue that always pops
+ * off the node with the smallest evaluation value (Manhattan distance from 
+ * current node to goal + step cost from start to current node).
+ * 
+ * @author Dillon Tice and Alex Rueb
+ */
 public class Astar extends InformedAgent {
 
+    /**
+     *
+     * @param chararr   A text representation of the maze
+     */
     public Astar(char[][] chararr) {
         this.chararr = chararr;
         maze = new Node[chararr.length][chararr[0].length];
@@ -21,12 +36,17 @@ public class Astar extends InformedAgent {
         return manhattan_distance(target, root);
     }
 
+    /**
+     *
+     * @param target    Start node
+     * @param flag      Whether or not the reconstruction is draw on the maze
+     * @return          Number of steps to start node
+     */
     public int reconstruct(Node target, boolean flag) {
         int cost = 0;
         while (target.parent != null) {
             target = target.parent;
-            if (target.id != 'P') {
-                
+            if (target.id != 'P') {         
                 cost++;
                 if (flag) {
                     maze[target.yCord][target.xCord].id = '.';
@@ -36,11 +56,22 @@ public class Astar extends InformedAgent {
         return cost;
     }
 
+    /**
+     *
+     * @param n Node to find step cost of from start node
+     * @return  number of steps to reach node from start node
+     */
     public int path_cost(Node n) {
         return reconstruct(n, false);
     }
 
     //the method that solves the maze
+
+    /**
+     *
+     * @return a node map of the maze with the solution marked as dots
+     * @throws java.lang.InterruptedException
+     */
     @Override
     public Node[][] solve() throws InterruptedException {
 

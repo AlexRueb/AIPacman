@@ -1,15 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
 
 import java.util.Stack;
 
 /**
  *
- * @author root
+ * 
+ * Agent super class contains instance fields, such as the maze, path cost, and
+ * steps taken, in addition to methods that all the different implementations
+ * share such as finding the start point, creating a node array, and printing
+ * the board.
+ * 
+ * @author Dillon Tice and Alex Rueb
+ * 
  */
 abstract public class Agent {
     char[][] chararr;
@@ -23,9 +25,9 @@ abstract public class Agent {
     public int nodesExpanded;
     Node root;
     
-    abstract public Node[][] solve() throws InterruptedException;
+    abstract public Node[][] solve();
     
-    public void findParent(Node target) throws InterruptedException {
+    public void findParent(Node target){
         if (target.parent != null) {
             answer.push(target.parent);
             if (target.id != '*') {

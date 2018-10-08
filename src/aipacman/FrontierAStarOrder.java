@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
-import java.lang.Integer;
 import java.util.Comparator;
 
 /**
  *
- * @author root
+ * FrontierAStarOrder contains the logic for sorting the priority 
+ * queue (frontier) in A* Search.
+ * 
+ * @author Alex Rueb and Dillon Tice
+ * 
  */
 public class FrontierAStarOrder implements Comparator<Node>{
     @Override

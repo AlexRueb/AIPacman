@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
-
-import java.lang.Math;
 
 /**
  *
- * @author Alex
+ * Node class is a data structure that holds the necessary information for
+ * map traversal such as node parents, coordinates, and heuristic/evaluation
+ * values.
+ * 
+ * @author Alex Rueb and Dillon Tice
+ * 
  */
 public class Node{
 

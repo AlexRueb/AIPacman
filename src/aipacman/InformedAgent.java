@@ -1,16 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package aipacman;
 
 /**
  *
- * @author root
+ * InformedAgent is the super class for the concrete  A* and 
+ * Greedy BFS search. Contains heuristic function and goal formulation methods
+ * 
+ * @author Alex Rueb and Dillon Tice
+ * 
  */
 public abstract class InformedAgent extends Agent{
     
+    /**
+     *
+     * @return
+     */
     public Node formulate_goal(){
         Node goal = new Node();
         for(Node[] row : maze){
@@ -23,11 +26,21 @@ public abstract class InformedAgent extends Agent{
         return goal;
     }
     
+    /**
+     *
+     * @param n1    The first node to be compared
+     * @param n2    The second node to be compared
+     * @return      The manhattan distance difference between the two nodes
+     */
     public int manhattan_distance(Node n1, Node n2){
         return (Math.abs(n1.xCord - n2.xCord) + Math.abs(n1.yCord - n2.yCord));
     }
-    
-    //(Manhattan distance to goal) + (the cost to reach the node)
+
+    /**
+     *
+     * @param n1    Node to find distance to goal
+     * @return      Manhattan distance from n1 to goal
+     */
     public int heuristic_function(Node n1){
         Node goal = formulate_goal();
         return manhattan_distance(n1, goal);
