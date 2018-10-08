@@ -20,20 +20,19 @@ public class Astar extends InformedAgent{
     private int evaluation_function(Node target){
         return manhattan_distance(target, root);
     }
-    @Override
-    public void findParent(Node target){
-        if(target.parent != null){
-            answer.push(target.parent);
-            pathCost++;
-            target.id = '.';
-            findParent(target.parent);
+
+    public int reconstruct(Node target, boolean flag){
+        int cost = 0;
+        while(target.parent != null){
+            target = target.parent;
+            cost++;
+            if(flag) maze[target.yCord][target.xCord].id = '.';
         }
+        return cost;
     }
     
     public int path_cost(Node n){
-        pathCost = 0;
-        findParent(n);
-        return pathCost;
+        return reconstruct(n,false);
     }
     
     //the method that solves the maze
@@ -54,26 +53,31 @@ public class Astar extends InformedAgent{
         
         //determine which node to expand using heuristic function
         frontier.add(root);
-        root.visited = true;
+        
         while (!frontier.isEmpty()) {
             nodesExpanded++;
             //always expand node that has lowest manhattan score to goal
             Node current = frontier.poll();
             if(current.id == '*'){
                 answer.push(current);
-                super.findParent(answer.pop());
+                reconstruct(answer.pop(), true);
                 stepsTaken = pathCost;
                 System.out.println("Found the path!");
                 return maze;
             }
+            
+            current.visited = true;
+            
             for(Node n : current.neighbors){
                 //print_board();
                 if(n == null) continue;
+                if(n.visited) continue;
                 
+                System.out.println(path_cost(current));
                 int tentative_score = path_cost(current);
 
                 //If neighbor of current node has been visited
-                if(n.visited){
+                if(!frontier.contains(n)){
                     frontier.add(n);
                 } 
                 else if(tentative_score >= n.distance_to_goal){
