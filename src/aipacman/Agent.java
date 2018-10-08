@@ -24,14 +24,14 @@ abstract public class Agent {
     
     abstract public Node[][] solve() throws InterruptedException;
     
-    public void findParent(Node target, char c) throws InterruptedException {
+    public void findParent(Node target) throws InterruptedException {
         if (target.parent != null) {
             answer.push(target.parent);
-            if (target.id != c) {
+            if (target.id != '*') {
                 maze[target.yCord][target.xCord].id = '.';
                 stepsTaken++;
             }
-            findParent(target.parent, c);
+            findParent(target.parent);
         }
     }
     
