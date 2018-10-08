@@ -11,7 +11,7 @@ import java.lang.Math;
  *
  * @author Alex
  */
-public class Node implements Comparable<Node>{
+public class Node{
 
     public Node[] neighbors = new Node[4];
     public int xCord;
@@ -46,10 +46,6 @@ public class Node implements Comparable<Node>{
         neighbors[spot].yCord = y;
         spot += 1;
         return neighbors[spot-1];
-    }
-    @Override
-    public int compareTo(Node n){
-        return estimated_cost - estimated_cost;
     }
     @Override
     public String toString(){

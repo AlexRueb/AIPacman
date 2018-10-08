@@ -43,7 +43,6 @@ public class Greedy extends InformedAgent{
         root.visited = true;
         int step = 0;
         while (!frontier.isEmpty()) {
-            print_board();
             nodesExpanded++;
             //always expand node that has lowest manhattan score to goal
             Node current = frontier.poll();
@@ -58,15 +57,16 @@ public class Greedy extends InformedAgent{
                     if(n == null) continue;
                     
                     //If neighbor of current node has been visited
-                    current.visited = true;
                     if(n.visited){continue;} 
                     else {
                        n.visited = true;
+                       n.distance_to_goal = manhattan_distance(n, goal);
                        frontier.add(n);
                     }
                     n.parent = current;
                     n.distance_to_goal = manhattan_distance(n, goal);
                 }
+                current.visited = true;
             }  
         }
         

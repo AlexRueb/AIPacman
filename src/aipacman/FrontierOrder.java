@@ -4,7 +4,7 @@
  * and open the template in the editor.
  */
 package aipacman;
-
+import java.lang.Integer;
 import java.util.Comparator;
 
 /**
@@ -14,6 +14,6 @@ import java.util.Comparator;
 public class FrontierOrder implements Comparator<Node>{
     @Override
     public int compare(Node n1, Node n2){
-        return n2.distance_to_goal - n1.distance_to_goal;
+        return n1.distance_to_goal - n2.distance_to_goal;
     }
 }
