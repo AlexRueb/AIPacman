@@ -33,7 +33,7 @@ public class AIPacman {
     public static void main(String[] args) throws InterruptedException {
         try {
             //Initialize Board
-            char[][] board = import_maze("src/aipacman/medium maze.txt");
+            char[][] board = import_maze("src/aipacman/large maze.txt");
             
             //Initialize Agent
             Agent agent;
@@ -61,16 +61,16 @@ public class AIPacman {
             System.out.println();
 
 //            //A* 
-//            agent = new Astar(board);
-//            Node[][] astarSolved = agent.solve();
-//            System.out.println();
-//            System.out.println("A* Solution:");
-//            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
-//            System.out.println("Steps taken: " + agent.stepsTaken);
-//            System.out.println("Nodes expanded: " + agent.nodesExpanded);
-//            System.out.println("---------------------------------------");
-//            printBoard(astarSolved);
-//            
+            agent = new Astar(board);
+            Node[][] astarSolved = agent.solve();
+            System.out.println();
+            System.out.println("A* Solution:");
+            System.out.println("Starting at: X = " + agent.startX + " and Y = " + agent.startY);
+            System.out.println("Steps taken: " + agent.stepsTaken);
+            System.out.println("Nodes expanded: " + agent.nodesExpanded);
+            System.out.println("---------------------------------------");
+            printBoard(astarSolved);
+            
             //Greedy Best First
             agent = new Greedy(board);
             Node[][] greedySolved = agent.solve();

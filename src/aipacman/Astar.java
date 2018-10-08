@@ -23,12 +23,27 @@ public class Astar extends InformedAgent{
         return manhattan_distance(target, root);
     }
     
+    @Override
+    public void findParent(Node target, char c){
+        if(target.parent != null){
+            answer.push(target.parent);
+            pathCost++;
+            findParent(target.parent, c);
+        }
+    }
+    
+    public int path_cost(Node n){
+        pathCost = 0;
+        findParent(n, 'F');
+        return pathCost;
+    }
+    
     //the method that solves the maze
     @Override
     public Node[][] solve() throws InterruptedException {
         
         //initialize frontier, with (heuristic+step_cost(n,root)) minimized
-        PriorityQueue<Node> frontier = new PriorityQueue<>(4,new FrontierOrder());
+        PriorityQueue<Node> frontier = new PriorityQueue<>(4,new FrontierAStarOrder());
         
         //initialize node array
         create_node_arr(chararr);
@@ -49,19 +64,19 @@ public class Astar extends InformedAgent{
             Node current = frontier.poll();
             if(current.id == '*'){
                 answer.push(current);
-                findParent(answer.pop(), '*');
+                super.findParent(answer.pop(), '*');
                 System.out.println("Found the path!");
                 return maze;
             } else {
                 for(Node n : current.neighbors){
                     //print_board();
                     if(n == null) continue;
+                    n.estimated_cost = manhattan_distance(n, goal) + path_cost(n);
                     
                     //If neighbor of current node has been visited
                     if(n.visited){continue;} 
                     else {
                        n.visited = true;
-                       n.distance_to_goal = manhattan_distance(n, goal);
                        frontier.add(n);
                     }
                     n.parent = current;

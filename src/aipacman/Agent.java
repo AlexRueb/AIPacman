@@ -19,6 +19,7 @@ abstract public class Agent {
     public int startY;
     public boolean solved;
     public int stepsTaken;
+    public int pathCost;
     public int nodesExpanded;
     Node root;
     
