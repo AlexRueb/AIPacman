@@ -28,10 +28,13 @@ public class Astar extends InformedAgent{
     public Node[][] solve() throws InterruptedException {
         
         //initialize frontier, with (heuristic+step_cost(n,root)) minimized
-        PriorityQueue<Node> frontier = new PriorityQueue<>();
+        PriorityQueue<Node> frontier = new PriorityQueue<>(4,new FrontierOrder());
         
         //initialize node array
         create_node_arr(chararr);
+        
+        //goal formulation
+        Node goal = formulate_goal();
         
         //find start point
         root = find_start_point();
@@ -41,39 +44,32 @@ public class Astar extends InformedAgent{
         root.visited = true;
         int step = 0;
         while (!frontier.isEmpty()) {
-            print_frontier(frontier);
             nodesExpanded++;
-            System.out.print(nodesExpanded);
-            //expand node that has lowest evaluation score
+            //always expand node that has lowest manhattan score to goal
             Node current = frontier.poll();
             if(current.id == '*'){
-                findParent(current, '*');
+                answer.push(current);
+                findParent(answer.pop(), '*');
+                System.out.println("Found the path!");
                 return maze;
-            }
-            
-            
-            current.visited = true;
-            int tentative_score = 0;
-            for(Node n : current.neighbors){
-                if(n == null) continue;
-                print_board();
-                //If neighbor of current node has been visited
-                if(n.visited){
-                } else {
-                    tentative_score = 0/*TODO path cost from start to node here*/;
+            } else {
+                for(Node n : current.neighbors){
+                    //print_board();
+                    if(n == null) continue;
                     
-                    if(!frontier.contains(n)){
-                        frontier.add(n);
+                    //If neighbor of current node has been visited
+                    if(n.visited){continue;} 
+                    else {
+                       n.visited = true;
+                       n.distance_to_goal = manhattan_distance(n, goal);
+                       frontier.add(n);
                     }
-                    else if(tentative_score >= n.distance_to_start){
-                        continue;
-                    }
+                    n.parent = current;
                 }
-                n.parent = current;
-                n.distance_to_start = tentative_score;
-                n.estimated_cost = n.distance_to_start + heuristic_function(n);
+                current.visited = true;
             }  
         }
+        
         return maze;
     }
     

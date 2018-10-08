@@ -33,7 +33,7 @@ public class AIPacman {
     public static void main(String[] args) throws InterruptedException {
         try {
             //Initialize Board
-            char[][] board = import_maze("src/aipacman/open maze.txt");
+            char[][] board = import_maze("src/aipacman/medium maze.txt");
             
             //Initialize Agent
             Agent agent;

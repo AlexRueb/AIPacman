@@ -64,7 +64,6 @@ public class Greedy extends InformedAgent{
                        frontier.add(n);
                     }
                     n.parent = current;
-                    n.distance_to_goal = manhattan_distance(n, goal);
                 }
                 current.visited = true;
             }  
