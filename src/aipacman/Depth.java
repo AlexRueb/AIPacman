@@ -33,7 +33,7 @@ public class Depth extends UninformedAgent{
             //print_board();
         }
         Node ans = answer.pop();
-        findParent(ans, '*');
+        findParent(ans);
 
         return maze;
     }

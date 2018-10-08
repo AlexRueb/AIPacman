@@ -48,7 +48,7 @@ public class Greedy extends InformedAgent{
             Node current = frontier.poll();
             if(current.id == '*'){
                 answer.push(current);
-                findParent(answer.pop(), '*');
+                findParent(answer.pop());
                 System.out.println("Found the path!");
                 return maze;
             } else {
